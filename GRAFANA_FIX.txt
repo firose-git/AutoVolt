@@ -1,0 +1,128 @@
+═══════════════════════════════════════════════════════════════
+   GRAFANA NOT SHOWING DATA - FIX GUIDE
+═══════════════════════════════════════════════════════════════
+
+PROBLEM: Backend metrics endpoint not working properly
+
+═══════════════════════════════════════════════════════════════
+   FIX STEPS
+═══════════════════════════════════════════════════════════════
+
+STEP 1: Open browser and test metrics endpoint manually
+---------------------------------------------------------
+1. Open: http://localhost:3001/metrics
+2. You should see text output like:
+
+# HELP autovolt_device_power_watts Current power consumption in watts
+# TYPE autovolt_device_power_watts gauge
+autovolt_device_power_watts{device_name="LH_D_28",classroom_id="Lab_A"} 0
+
+If you DON'T see this, backend has a problem.
+
+STEP 2: If metrics endpoint shows data, configure Prometheus
+-------------------------------------------------------------
+1. Open: http://localhost:9090/targets
+2. Check if "autovolt-backend" target is UP
+3. If DOWN, Prometheus can't reach backend
+
+STEP 3: Fix Prometheus target
+------------------------------
+Edit prometheus.yml to use correct IP:
+
+OLD:
+      - targets: ['host.docker.internal:3001']
+
+NEW:
+      - targets: ['172.16.3.171:3001']
+
+Then restart Prometheus:
+docker restart autovolt-prometheus
+
+STEP 4: Configure Grafana data source
+--------------------------------------
+1. Open: http://localhost:3000
+2. Login: admin / admin
+3. Go to: Configuration → Data Sources → Add Prometheus
+4. URL: http://prometheus:9090
+5. Click: Save & Test
+6. Should show: "Data source is working"
+
+STEP 5: Test query in Grafana Explore
+--------------------------------------
+1. Go to: Explore (compass icon)
+2. Select: Prometheus data source
+3. Query: autovolt_device_status
+4. Click: Run query
+5. Should show: Table with device data
+
+If you see data here, queries will work in dashboard!
+
+STEP 6: Create dashboard panels
+--------------------------------
+1. Create → Dashboard → Add panel
+2. Paste queries from GRAFANA_QUERIES.txt
+3. Set visualization type
+4. Click Apply
+
+═══════════════════════════════════════════════════════════════
+   QUICK DIAGNOSTIC COMMANDS
+═══════════════════════════════════════════════════════════════
+
+# Check backend running
+netstat -ano | findstr :3001
+
+# Test metrics endpoint
+curl http://localhost:3001/metrics
+
+# Check Grafana running
+curl http://localhost:3000/api/health
+
+# Check Prometheus running
+curl http://localhost:9090/-/healthy
+
+# Check Prometheus targets
+Start-Process "http://localhost:9090/targets"
+
+═══════════════════════════════════════════════════════════════
+   IF BACKEND /metrics ENDPOINT NOT WORKING
+═══════════════════════════════════════════════════════════════
+
+The /metrics endpoint was added to server.js but backend needs
+to stay running. The RSS/Weather errors are NOT critical.
+
+To keep backend running without crashes:
+1. Open backend/server.js
+2. Find lines ~808 and ~817 (RSS and Weather service init)
+3. Comment them out or remove those initialization calls
+4. Restart backend: cd backend; npm start
+
+Or just ignore those errors - they don't affect metrics!
+
+═══════════════════════════════════════════════════════════════
+   ALTERNATIVE: USE EXISTING GRAFANA
+═══════════════════════════════════════════════════════════════
+
+If docker containers aren't working, use the Grafana that was
+already running on port 3000!
+
+1. Open: http://localhost:3000
+2. It's already running from before
+3. Add Prometheus data source pointing to: http://172.16.3.171:9090
+4. Create dashboard with queries
+
+═══════════════════════════════════════════════════════════════
+   STILL NOT WORKING? SIMPLE TEST
+═══════════════════════════════════════════════════════════════
+
+Open TWO browser tabs:
+
+TAB 1: http://localhost:3001/metrics
+       Should show Prometheus metrics text
+
+TAB 2: http://localhost:3000
+       Grafana login page
+
+If TAB 1 works, everything else will work!
+If TAB 1 doesn't work, backend has the problem.
+
+═══════════════════════════════════════════════════════════════

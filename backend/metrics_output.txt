@@ -1,0 +1,241 @@
+# HELP process_cpu_user_seconds_total Total user CPU time spent in seconds.
+# TYPE process_cpu_user_seconds_total counter
+process_cpu_user_seconds_total 167.40599999999674
+
+# HELP process_cpu_system_seconds_total Total system CPU time spent in seconds.
+# TYPE process_cpu_system_seconds_total counter
+process_cpu_system_seconds_total 51.42199999999946
+
+# HELP process_cpu_seconds_total Total user and system CPU time spent in seconds.
+# TYPE process_cpu_seconds_total counter
+process_cpu_seconds_total 218.8279999999977
+
+# HELP process_start_time_seconds Start time of the process since unix epoch in seconds.
+# TYPE process_start_time_seconds gauge
+process_start_time_seconds 1760756048
+
+# HELP process_resident_memory_bytes Resident memory size in bytes.
+# TYPE process_resident_memory_bytes gauge
+process_resident_memory_bytes 49942528
+
+# HELP nodejs_eventloop_lag_seconds Lag of event loop in seconds.
+# TYPE nodejs_eventloop_lag_seconds gauge
+nodejs_eventloop_lag_seconds 0.0011899
+
+# HELP nodejs_eventloop_lag_min_seconds The minimum recorded event loop delay.
+# TYPE nodejs_eventloop_lag_min_seconds gauge
+nodejs_eventloop_lag_min_seconds 0.013746176
+
+# HELP nodejs_eventloop_lag_max_seconds The maximum recorded event loop delay.
+# TYPE nodejs_eventloop_lag_max_seconds gauge
+nodejs_eventloop_lag_max_seconds 0.016121855
+
+# HELP nodejs_eventloop_lag_mean_seconds The mean of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_mean_seconds gauge
+nodejs_eventloop_lag_mean_seconds 0.0150331392
+
+# HELP nodejs_eventloop_lag_stddev_seconds The standard deviation of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_stddev_seconds gauge
+nodejs_eventloop_lag_stddev_seconds 0.0007905615313095875
+
+# HELP nodejs_eventloop_lag_p50_seconds The 50th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p50_seconds gauge
+nodejs_eventloop_lag_p50_seconds 0.015212543
+
+# HELP nodejs_eventloop_lag_p90_seconds The 90th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p90_seconds gauge
+nodejs_eventloop_lag_p90_seconds 0.016121855
+
+# HELP nodejs_eventloop_lag_p99_seconds The 99th percentile of the recorded event loop delays.
+# TYPE nodejs_eventloop_lag_p99_seconds gauge
+nodejs_eventloop_lag_p99_seconds 0.016121855
+
+# HELP nodejs_active_resources Number of active resources that are currently keeping the event loop alive, grouped by async resource type.
+# TYPE nodejs_active_resources gauge
+nodejs_active_resources{type="TTYWrap"} 2
+nodejs_active_resources{type="TCPServerWrap"} 1
+nodejs_active_resources{type="TCPSocketWrap"} 18
+nodejs_active_resources{type="Timeout"} 7
+nodejs_active_resources{type="Immediate"} 1
+
+# HELP nodejs_active_resources_total Total number of active resources.
+# TYPE nodejs_active_resources_total gauge
+nodejs_active_resources_total 29
+
+# HELP nodejs_active_handles Number of active libuv handles grouped by handle type. Every handle type is C++ class name.
+# TYPE nodejs_active_handles gauge
+nodejs_active_handles{type="WriteStream"} 2
+nodejs_active_handles{type="Server"} 1
+nodejs_active_handles{type="Socket"} 18
+
+# HELP nodejs_active_handles_total Total number of active handles.
+# TYPE nodejs_active_handles_total gauge
+nodejs_active_handles_total 21
+
+# HELP nodejs_active_requests Number of active libuv requests grouped by request type. Every request type is C++ class name.
+# TYPE nodejs_active_requests gauge
+
+# HELP nodejs_active_requests_total Total number of active requests.
+# TYPE nodejs_active_requests_total gauge
+nodejs_active_requests_total 0
+
+# HELP nodejs_heap_size_total_bytes Process heap size from Node.js in bytes.
+# TYPE nodejs_heap_size_total_bytes gauge
+nodejs_heap_size_total_bytes 73052160
+
+# HELP nodejs_heap_size_used_bytes Process heap size used from Node.js in bytes.
+# TYPE nodejs_heap_size_used_bytes gauge
+nodejs_heap_size_used_bytes 69891536
+
+# HELP nodejs_external_memory_bytes Node.js external memory size in bytes.
+# TYPE nodejs_external_memory_bytes gauge
+nodejs_external_memory_bytes 25411162
+
+# HELP nodejs_heap_space_size_total_bytes Process heap space size total from Node.js in bytes.
+# TYPE nodejs_heap_space_size_total_bytes gauge
+nodejs_heap_space_size_total_bytes{space="read_only"} 0
+nodejs_heap_space_size_total_bytes{space="new"} 1048576
+nodejs_heap_space_size_total_bytes{space="old"} 48807936
+nodejs_heap_space_size_total_bytes{space="code"} 6291456
+nodejs_heap_space_size_total_bytes{space="shared"} 0
+nodejs_heap_space_size_total_bytes{space="trusted"} 3448832
+nodejs_heap_space_size_total_bytes{space="new_large_object"} 0
+nodejs_heap_space_size_total_bytes{space="large_object"} 13299712
+nodejs_heap_space_size_total_bytes{space="code_large_object"} 155648
+nodejs_heap_space_size_total_bytes{space="shared_large_object"} 0
+nodejs_heap_space_size_total_bytes{space="trusted_large_object"} 0
+
+# HELP nodejs_heap_space_size_used_bytes Process heap space size used from Node.js in bytes.
+# TYPE nodejs_heap_space_size_used_bytes gauge
+nodejs_heap_space_size_used_bytes{space="read_only"} 0
+nodejs_heap_space_size_used_bytes{space="new"} 676336
+nodejs_heap_space_size_used_bytes{space="old"} 47544320
+nodejs_heap_space_size_used_bytes{space="code"} 5548096
+nodejs_heap_space_size_used_bytes{space="shared"} 0
+nodejs_heap_space_size_used_bytes{space="trusted"} 2881384
+nodejs_heap_space_size_used_bytes{space="new_large_object"} 0
+nodejs_heap_space_size_used_bytes{space="large_object"} 13106704
+nodejs_heap_space_size_used_bytes{space="code_large_object"} 138304
+nodejs_heap_space_size_used_bytes{space="shared_large_object"} 0
+nodejs_heap_space_size_used_bytes{space="trusted_large_object"} 0
+
+# HELP nodejs_heap_space_size_available_bytes Process heap space size available from Node.js in bytes.
+# TYPE nodejs_heap_space_size_available_bytes gauge
+nodejs_heap_space_size_available_bytes{space="read_only"} 0
+nodejs_heap_space_size_available_bytes{space="new"} 354576
+nodejs_heap_space_size_available_bytes{space="old"} 294952
+nodejs_heap_space_size_available_bytes{space="code"} 349376
+nodejs_heap_space_size_available_bytes{space="shared"} 0
+nodejs_heap_space_size_available_bytes{space="trusted"} 504088
+nodejs_heap_space_size_available_bytes{space="new_large_object"} 1048576
+nodejs_heap_space_size_available_bytes{space="large_object"} 0
+nodejs_heap_space_size_available_bytes{space="code_large_object"} 0
+nodejs_heap_space_size_available_bytes{space="shared_large_object"} 0
+nodejs_heap_space_size_available_bytes{space="trusted_large_object"} 0
+
+# HELP nodejs_version_info Node.js version info.
+# TYPE nodejs_version_info gauge
+nodejs_version_info{version="v22.19.0",major="22",minor="19",patch="0"} 1
+
+# HELP nodejs_gc_duration_seconds Garbage collection duration by kind, one of major, minor, incremental or weakcb.
+# TYPE nodejs_gc_duration_seconds histogram
+nodejs_gc_duration_seconds_bucket{le="0.001",kind="minor"} 6997
+nodejs_gc_duration_seconds_bucket{le="0.01",kind="minor"} 7200
+nodejs_gc_duration_seconds_bucket{le="0.1",kind="minor"} 7208
+nodejs_gc_duration_seconds_bucket{le="1",kind="minor"} 7213
+nodejs_gc_duration_seconds_bucket{le="2",kind="minor"} 7213
+nodejs_gc_duration_seconds_bucket{le="5",kind="minor"} 7213
+nodejs_gc_duration_seconds_bucket{le="+Inf",kind="minor"} 7213
+nodejs_gc_duration_seconds_sum{kind="minor"} 4.715004200085987
+nodejs_gc_duration_seconds_count{kind="minor"} 7213
+nodejs_gc_duration_seconds_bucket{le="0.001",kind="incremental"} 41
+nodejs_gc_duration_seconds_bucket{le="0.01",kind="incremental"} 52
+nodejs_gc_duration_seconds_bucket{le="0.1",kind="incremental"} 52
+nodejs_gc_duration_seconds_bucket{le="1",kind="incremental"} 52
+nodejs_gc_duration_seconds_bucket{le="2",kind="incremental"} 52
+nodejs_gc_duration_seconds_bucket{le="5",kind="incremental"} 52
+nodejs_gc_duration_seconds_bucket{le="+Inf",kind="incremental"} 52
+nodejs_gc_duration_seconds_sum{kind="incremental"} 0.04783919997513294
+nodejs_gc_duration_seconds_count{kind="incremental"} 52
+nodejs_gc_duration_seconds_bucket{le="0.001",kind="major"} 0
+nodejs_gc_duration_seconds_bucket{le="0.01",kind="major"} 44
+nodejs_gc_duration_seconds_bucket{le="0.1",kind="major"} 48
+nodejs_gc_duration_seconds_bucket{le="1",kind="major"} 49
+nodejs_gc_duration_seconds_bucket{le="2",kind="major"} 49
+nodejs_gc_duration_seconds_bucket{le="5",kind="major"} 49
+nodejs_gc_duration_seconds_bucket{le="+Inf",kind="major"} 49
+nodejs_gc_duration_seconds_sum{kind="major"} 0.508605499997735
+nodejs_gc_duration_seconds_count{kind="major"} 49
+
+# HELP esp32_device_count Total number of ESP32 devices registered in the system
+# TYPE esp32_device_count gauge
+esp32_device_count{status="total"} 5
+esp32_device_count{status="online"} 2
+esp32_device_count{status="offline"} 3
+
+# HELP esp32_power_usage_watts Current power usage in watts for ESP32-controlled devices
+# TYPE esp32_power_usage_watts gauge
+esp32_power_usage_watts{device_id="68da50a4005ee107b478c758",device_name="Computer_Lab",classroom="Computer Lab",mac_address="80:f3:da:65:47:38"} 80
+esp32_power_usage_watts{device_id="68db589921d4d457e5f3b4ef",device_name="LH_D_28",classroom="MCA",mac_address="6c:c8:40:4f:82:c0"} 0
+esp32_power_usage_watts{device_id="68e0a54dfecf5e1f6be66159",device_name="LH_D_28_2_B",classroom="MCA",mac_address="88:57:21:79:c5:4c"} 0
+esp32_power_usage_watts{device_id="68e9e7780078429155448b56",device_name="IOT_Lab",classroom="IOT_Lab",mac_address="80:f3:da:64:c6:28"} 0
+esp32_power_usage_watts{device_id="68f105138c2d8ff0512a89de",device_name="LH_19g",classroom="BCA",mac_address="88:57:21:78:93:d0"} 0
+
+# HELP esp32_online_status ESP32 device online status (1=online, 0=offline)
+# TYPE esp32_online_status gauge
+esp32_online_status{device_id="68da50a4005ee107b478c758",device_name="Computer_Lab",classroom="Computer Lab",mac_address="80:f3:da:65:47:38"} 0
+esp32_online_status{device_id="68db589921d4d457e5f3b4ef",device_name="LH_D_28",classroom="MCA",mac_address="6c:c8:40:4f:82:c0"} 1
+esp32_online_status{device_id="68e0a54dfecf5e1f6be66159",device_name="LH_D_28_2_B",classroom="MCA",mac_address="88:57:21:79:c5:4c"} 1
+esp32_online_status{device_id="68e9e7780078429155448b56",device_name="IOT_Lab",classroom="IOT_Lab",mac_address="80:f3:da:64:c6:28"} 0
+esp32_online_status{device_id="68f105138c2d8ff0512a89de",device_name="LH_19g",classroom="BCA",mac_address="88:57:21:78:93:d0"} 0
+
+# HELP esp32_telemetry_received_total Total number of telemetry messages received from ESP32 devices
+# TYPE esp32_telemetry_received_total counter
+
+# HELP esp32_command_sent_total Total number of commands sent to ESP32 devices
+# TYPE esp32_command_sent_total counter
+
+# HELP esp32_connection_uptime_seconds ESP32 device connection uptime in seconds
+# TYPE esp32_connection_uptime_seconds gauge
+esp32_connection_uptime_seconds{device_id="68da50a4005ee107b478c758",device_name="Computer_Lab",mac_address="80:f3:da:65:47:38"} 23331
+esp32_connection_uptime_seconds{device_id="68db589921d4d457e5f3b4ef",device_name="LH_D_28",mac_address="6c:c8:40:4f:82:c0"} 59436
+esp32_connection_uptime_seconds{device_id="68e0a54dfecf5e1f6be66159",device_name="LH_D_28_2_B",mac_address="88:57:21:79:c5:4c"} 16501
+esp32_connection_uptime_seconds{device_id="68e9e7780078429155448b56",device_name="IOT_Lab",mac_address="80:f3:da:64:c6:28"} 3231
+esp32_connection_uptime_seconds{device_id="68f105138c2d8ff0512a89de",device_name="LH_19g",mac_address="88:57:21:78:93:d0"} 72409
+
+# HELP esp32_switch_state ESP32 switch state (1=ON, 0=OFF)
+# TYPE esp32_switch_state gauge
+esp32_switch_state{device_id="68da50a4005ee107b478c758",device_name="Computer_Lab",mac_address="80:f3:da:65:47:38",switch_id="68eb8b099241d512e46739f6",switch_name="Cabin_Light 1"} 1
+esp32_switch_state{device_id="68da50a4005ee107b478c758",device_name="Computer_Lab",mac_address="80:f3:da:65:47:38",switch_id="68eb8b099241d512e46739f7",switch_name="Light 2"} 1
+esp32_switch_state{device_id="68da50a4005ee107b478c758",device_name="Computer_Lab",mac_address="80:f3:da:65:47:38",switch_id="68eb8b099241d512e46739f8",switch_name="Light 3"} 1
+esp32_switch_state{device_id="68da50a4005ee107b478c758",device_name="Computer_Lab",mac_address="80:f3:da:65:47:38",switch_id="68eb8b099241d512e46739f9",switch_name="Light 4"} 1
+esp32_switch_state{device_id="68db589921d4d457e5f3b4ef",device_name="LH_D_28",mac_address="6c:c8:40:4f:82:c0",switch_id="68e8abd859a59f6d90523925",switch_name="Fan 1"} 0
+esp32_switch_state{device_id="68db589921d4d457e5f3b4ef",device_name="LH_D_28",mac_address="6c:c8:40:4f:82:c0",switch_id="68e8abd859a59f6d90523926",switch_name="Light 1"} 0
+esp32_switch_state{device_id="68db589921d4d457e5f3b4ef",device_name="LH_D_28",mac_address="6c:c8:40:4f:82:c0",switch_id="68e8abd859a59f6d90523927",switch_name="Fan 2"} 0
+esp32_switch_state{device_id="68db589921d4d457e5f3b4ef",device_name="LH_D_28",mac_address="6c:c8:40:4f:82:c0",switch_id="68e8abd859a59f6d90523928",switch_name="Light 2"} 0
+esp32_switch_state{device_id="68e0a54dfecf5e1f6be66159",device_name="LH_D_28_2_B",mac_address="88:57:21:79:c5:4c",switch_id="68e8ac1f59a59f6d90523a5c",switch_name="Fan 1"} 0
+esp32_switch_state{device_id="68e0a54dfecf5e1f6be66159",device_name="LH_D_28_2_B",mac_address="88:57:21:79:c5:4c",switch_id="68e8ac1f59a59f6d90523a5d",switch_name="Light 1"} 0
+esp32_switch_state{device_id="68e0a54dfecf5e1f6be66159",device_name="LH_D_28_2_B",mac_address="88:57:21:79:c5:4c",switch_id="68e8ac1f59a59f6d90523a5e",switch_name="Fan 2"} 0
+esp32_switch_state{device_id="68e0a54dfecf5e1f6be66159",device_name="LH_D_28_2_B",mac_address="88:57:21:79:c5:4c",switch_id="68e8ac1f59a59f6d90523a5f",switch_name="Projector_Ncomputing"} 0
+esp32_switch_state{device_id="68e9e7780078429155448b56",device_name="IOT_Lab",mac_address="80:f3:da:64:c6:28",switch_id="68e9e80a0078429155448c9b",switch_name="IOT_Light 1"} 0
+esp32_switch_state{device_id="68e9e7780078429155448b56",device_name="IOT_Lab",mac_address="80:f3:da:64:c6:28",switch_id="68e9e80a0078429155448c9c",switch_name="IOT_Light 2"} 0
+esp32_switch_state{device_id="68e9e7780078429155448b56",device_name="IOT_Lab",mac_address="80:f3:da:64:c6:28",switch_id="68e9e80a0078429155448c9d",switch_name="Light 3"} 0
+esp32_switch_state{device_id="68e9e7780078429155448b56",device_name="IOT_Lab",mac_address="80:f3:da:64:c6:28",switch_id="68e9e80a0078429155448c9e",switch_name="Light 4"} 0
+esp32_switch_state{device_id="68e9e7780078429155448b56",device_name="IOT_Lab",mac_address="80:f3:da:64:c6:28",switch_id="68e9e80a0078429155448c9f",switch_name="Fan 1"} 0
+esp32_switch_state{device_id="68f105138c2d8ff0512a89de",device_name="LH_19g",mac_address="88:57:21:78:93:d0",switch_id="68f23e3ffd0326f05784d8d8",switch_name="Light 3"} 0
+
+# HELP esp32_temperature_celsius ESP32 device temperature in Celsius
+# TYPE esp32_temperature_celsius gauge
+esp32_temperature_celsius{device_id="68da50a4005ee107b478c758",device_name="Computer_Lab",mac_address="80:f3:da:65:47:38"} 32.61807826507077
+esp32_temperature_celsius{device_id="68db589921d4d457e5f3b4ef",device_name="LH_D_28",mac_address="6c:c8:40:4f:82:c0"} 33.18880471496952
+esp32_temperature_celsius{device_id="68e0a54dfecf5e1f6be66159",device_name="LH_D_28_2_B",mac_address="88:57:21:79:c5:4c"} 32.406112150682105
+esp32_temperature_celsius{device_id="68e9e7780078429155448b56",device_name="IOT_Lab",mac_address="80:f3:da:64:c6:28"} 33.364244792382166
+esp32_temperature_celsius{device_id="68f105138c2d8ff0512a89de",device_name="LH_19g",mac_address="88:57:21:78:93:d0"} 33.98640631888325
+
+# HELP esp32_heap_memory_bytes ESP32 device free heap memory in bytes
+# TYPE esp32_heap_memory_bytes gauge
+esp32_heap_memory_bytes{device_id="68da50a4005ee107b478c758",device_name="Computer_Lab",mac_address="80:f3:da:65:47:38"} 66462.39295748455
+esp32_heap_memory_bytes{device_id="68db589921d4d457e5f3b4ef",device_name="LH_D_28",mac_address="6c:c8:40:4f:82:c0"} 52842.19906557655
+esp32_heap_memory_bytes{device_id="68e0a54dfecf5e1f6be66159",device_name="LH_D_28_2_B",mac_address="88:57:21:79:c5:4c"} 69143.07348937652
+esp32_heap_memory_bytes{device_id="68e9e7780078429155448b56",device_name="IOT_Lab",mac_address="80:f3:da:64:c6:28"} 51403.54624994024
+esp32_heap_memory_bytes{device_id="68f105138c2d8ff0512a89de",device_name="LH_19g",mac_address="88:57:21:78:93:d0"} 52390.14850026343

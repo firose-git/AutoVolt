@@ -1,0 +1,717 @@
+﻿{
+    "id": null,
+    "uid": "d62e6d4e83d8400085cb7b24db51c879",
+    "title":  "AutoVolt Energy Monitoring",
+    "tags":  [
+                 "autovolt",
+                 "energy",
+                 "iot",
+                 "esp32"
+             ],
+    "timezone":  "browser",
+    "refresh":  "30s",
+    "time":  {
+                 "from":  "now-6h",
+                 "to":  "now"
+             },
+    "panels":  [
+                   {
+                       "id":  1,
+                       "title":  "Total Power Consumption",
+                       "type":  "stat",
+                       "gridPos":  {
+                                       "h":  4,
+                                       "w":  6,
+                                       "x":  0,
+                                       "y":  0
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "sum(power_usage_watts)",
+                                           "legendFormat":  "Total Power"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "watt",
+                                                            "thresholds":  {
+                                                                               "mode":  "absolute",
+                                                                               "steps":  [
+                                                                                             {
+                                                                                                 "value":  0,
+                                                                                                 "color":  "green"
+                                                                                             },
+                                                                                             {
+                                                                                                 "value":  500,
+                                                                                                 "color":  "yellow"
+                                                                                             },
+                                                                                             {
+                                                                                                 "value":  1000,
+                                                                                                 "color":  "red"
+                                                                                             }
+                                                                                         ]
+                                                                           }
+                                                        }
+                                       },
+                       "options":  {
+                                       "colorMode":  "value",
+                                       "graphMode":  "area",
+                                       "textMode":  "value_and_name"
+                                   }
+                   },
+                   {
+                       "id":  2,
+                       "title":  "Energy Today",
+                       "type":  "stat",
+                       "gridPos":  {
+                                       "h":  4,
+                                       "w":  6,
+                                       "x":  6,
+                                       "y":  0
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "esp32_energy_consumption_total_daily",
+                                           "legendFormat":  "Today"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "kwatth",
+                                                            "decimals":  3,
+                                                            "thresholds":  {
+                                                                               "mode":  "absolute",
+                                                                               "steps":  [
+                                                                                             {
+                                                                                                 "value":  0,
+                                                                                                 "color":  "green"
+                                                                                             }
+                                                                                         ]
+                                                                           }
+                                                        }
+                                       }
+                   },
+                   {
+                       "id":  3,
+                       "title":  "Energy This Month",
+                       "type":  "stat",
+                       "gridPos":  {
+                                       "h":  4,
+                                       "w":  6,
+                                       "x":  12,
+                                       "y":  0
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "esp32_energy_consumption_total_monthly",
+                                           "legendFormat":  "Monthly"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "kwatth",
+                                                            "decimals":  3,
+                                                            "thresholds":  {
+                                                                               "mode":  "absolute",
+                                                                               "steps":  [
+                                                                                             {
+                                                                                                 "value":  0,
+                                                                                                 "color":  "green"
+                                                                                             }
+                                                                                         ]
+                                                                           }
+                                                        }
+                                       }
+                   },
+                   {
+                       "id":  4,
+                       "title":  "Device Status",
+                       "type":  "stat",
+                       "gridPos":  {
+                                       "h":  4,
+                                       "w":  6,
+                                       "x":  18,
+                                       "y":  0
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "sum(device_online_count{classroom=\"all\", device_type=\"all\"})",
+                                           "legendFormat":  "Online"
+                                       },
+                                       {
+                                           "expr":  "sum(device_offline_count{classroom=\"all\", device_type=\"all\"})",
+                                           "legendFormat":  "Offline"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "thresholds":  {
+                                                                               "mode":  "absolute",
+                                                                               "steps":  [
+                                                                                             {
+                                                                                                 "value":  0,
+                                                                                                 "color":  "green"
+                                                                                             }
+                                                                                         ]
+                                                                           }
+                                                        },
+                                           "overrides":  [
+                                                             {
+                                                                 "matcher":  {
+                                                                                 "id":  "byName",
+                                                                                 "options":  "Offline"
+                                                                             },
+                                                                 "properties":  [
+                                                                                    {
+                                                                                        "id":  "color",
+                                                                                        "value":  {
+                                                                                                      "mode":  "fixed",
+                                                                                                      "fixedColor":  "red"
+                                                                                                  }
+                                                                                    }
+                                                                                ]
+                                                             }
+                                                         ]
+                                       }
+                   },
+                   {
+                       "id":  5,
+                       "title":  "Power by Device Type",
+                       "type":  "piechart",
+                       "gridPos":  {
+                                       "h":  8,
+                                       "w":  8,
+                                       "x":  0,
+                                       "y":  4
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "sum(power_usage_by_type_watts) by (device_type)",
+                                           "legendFormat":  "{{device_type}}"
+                                       }
+                                   ],
+                       "options":  {
+                                       "legend":  {
+                                                      "displayMode":  "list",
+                                                      "placement":  "right"
+                                                  },
+                                       "pieType":  "pie",
+                                       "displayLabels":  [
+                                                             "percent"
+                                                         ]
+                                   },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "watt"
+                                                        }
+                                       }
+                   },
+                   {
+                       "id":  6,
+                       "title":  "ESP32 Device Count",
+                       "type":  "stat",
+                       "gridPos":  {
+                                       "h":  8,
+                                       "w":  8,
+                                       "x":  8,
+                                       "y":  4
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "esp32_device_count{status=\"total\"}",
+                                           "legendFormat":  "Total"
+                                       },
+                                       {
+                                           "expr":  "esp32_device_count{status=\"online\"}",
+                                           "legendFormat":  "Online"
+                                       },
+                                       {
+                                           "expr":  "esp32_device_count{status=\"offline\"}",
+                                           "legendFormat":  "Offline"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "overrides":  [
+                                                             {
+                                                                 "matcher":  {
+                                                                                 "id":  "byName",
+                                                                                 "options":  "Online"
+                                                                             },
+                                                                 "properties":  [
+                                                                                    {
+                                                                                        "id":  "color",
+                                                                                        "value":  {
+                                                                                                      "mode":  "fixed",
+                                                                                                      "fixedColor":  "green"
+                                                                                                  }
+                                                                                    }
+                                                                                ]
+                                                             },
+                                                             {
+                                                                 "matcher":  {
+                                                                                 "id":  "byName",
+                                                                                 "options":  "Offline"
+                                                                             },
+                                                                 "properties":  [
+                                                                                    {
+                                                                                        "id":  "color",
+                                                                                        "value":  {
+                                                                                                      "mode":  "fixed",
+                                                                                                      "fixedColor":  "red"
+                                                                                                  }
+                                                                                    }
+                                                                                ]
+                                                             }
+                                                         ]
+                                       },
+                       "options":  {
+                                       "orientation":  "horizontal",
+                                       "textMode":  "value_and_name"
+                                   }
+                   },
+                   {
+                       "id":  7,
+                       "title":  "Power by Classroom",
+                       "type":  "barchart",
+                       "gridPos":  {
+                                       "h":  8,
+                                       "w":  8,
+                                       "x":  16,
+                                       "y":  4
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "sum(power_usage_by_classroom_type_watts) by (classroom)",
+                                           "legendFormat":  "{{classroom}}"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "watt"
+                                                        }
+                                       }
+                   },
+                   {
+                       "id":  8,
+                       "title":  "Power Consumption Timeline",
+                       "type":  "timeseries",
+                       "gridPos":  {
+                                       "h":  9,
+                                       "w":  24,
+                                       "x":  0,
+                                       "y":  12
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "sum(power_usage_watts) by (device_name)",
+                                           "legendFormat":  "{{device_name}}"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "watt",
+                                                            "custom":  {
+                                                                           "drawStyle":  "line",
+                                                                           "lineInterpolation":  "smooth",
+                                                                           "fillOpacity":  10,
+                                                                           "showPoints":  "never"
+                                                                       }
+                                                        }
+                                       },
+                       "options":  {
+                                       "legend":  {
+                                                      "displayMode":  "table",
+                                                      "placement":  "bottom",
+                                                      "calcs":  [
+                                                                    "lastNotNull",
+                                                                    "max",
+                                                                    "mean"
+                                                                ]
+                                                  },
+                                       "tooltip":  {
+                                                       "mode":  "multi"
+                                                   }
+                                   }
+                   },
+                   {
+                       "id":  9,
+                       "title":  "Energy by Classroom (Monthly)",
+                       "type":  "bargauge",
+                       "gridPos":  {
+                                       "h":  8,
+                                       "w":  12,
+                                       "x":  0,
+                                       "y":  21
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "sum(esp32_energy_consumption_monthly) by (classroom)",
+                                           "legendFormat":  "{{classroom}}"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "kwatth",
+                                                            "decimals":  3,
+                                                            "thresholds":  {
+                                                                               "mode":  "absolute",
+                                                                               "steps":  [
+                                                                                             {
+                                                                                                 "value":  0,
+                                                                                                 "color":  "green"
+                                                                                             },
+                                                                                             {
+                                                                                                 "value":  50,
+                                                                                                 "color":  "yellow"
+                                                                                             },
+                                                                                             {
+                                                                                                 "value":  100,
+                                                                                                 "color":  "red"
+                                                                                             }
+                                                                                         ]
+                                                                           }
+                                                        }
+                                       },
+                       "options":  {
+                                       "orientation":  "horizontal",
+                                       "displayMode":  "gradient"
+                                   }
+                   },
+                   {
+                       "id":  10,
+                       "title":  "Device Health Score",
+                       "type":  "gauge",
+                       "gridPos":  {
+                                       "h":  8,
+                                       "w":  12,
+                                       "x":  12,
+                                       "y":  21
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "avg(device_health_score)",
+                                           "legendFormat":  "Average Health"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "min":  0,
+                                                            "max":  100,
+                                                            "thresholds":  {
+                                                                               "mode":  "absolute",
+                                                                               "steps":  [
+                                                                                             {
+                                                                                                 "value":  0,
+                                                                                                 "color":  "red"
+                                                                                             },
+                                                                                             {
+                                                                                                 "value":  50,
+                                                                                                 "color":  "yellow"
+                                                                                             },
+                                                                                             {
+                                                                                                 "value":  80,
+                                                                                                 "color":  "green"
+                                                                                             }
+                                                                                         ]
+                                                                           }
+                                                        }
+                                       },
+                       "options":  {
+                                       "showThresholdLabels":  true,
+                                       "showThresholdMarkers":  true
+                                   }
+                   },
+                   {
+                       "id":  11,
+                       "title":  "Top 5 Power Consuming Devices",
+                       "type":  "barchart",
+                       "gridPos":  {
+                                       "h":  8,
+                                       "w":  12,
+                                       "x":  0,
+                                       "y":  29
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "topk(5, power_usage_watts)",
+                                           "legendFormat":  "{{device_name}}"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "watt",
+                                                            "color":  {
+                                                                          "mode":  "palette-classic"
+                                                                      }
+                                                        }
+                                       },
+                       "options":  {
+                                       "orientation":  "horizontal",
+                                       "xTickLabelRotation":  0
+                                   }
+                   },
+                   {
+                       "id":  12,
+                       "title":  "ESP32 Heap Memory",
+                       "type":  "timeseries",
+                       "gridPos":  {
+                                       "h":  8,
+                                       "w":  12,
+                                       "x":  12,
+                                       "y":  29
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "esp32_heap_memory / 1024",
+                                           "legendFormat":  "{{device_name}}"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "deckbytes",
+                                                            "min":  0,
+                                                            "custom":  {
+                                                                           "drawStyle":  "line",
+                                                                           "lineInterpolation":  "smooth",
+                                                                           "fillOpacity":  20
+                                                                       }
+                                                        }
+                                       },
+                       "options":  {
+                                       "legend":  {
+                                                      "displayMode":  "list",
+                                                      "placement":  "bottom"
+                                                  }
+                                   }
+                   },
+                   {
+                       "id":  13,
+                       "title":  "Switch States",
+                       "type":  "table",
+                       "gridPos":  {
+                                       "h":  9,
+                                       "w":  24,
+                                       "x":  0,
+                                       "y":  37
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "esp32_switch_state",
+                                           "format":  "table",
+                                           "instant":  true
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "overrides":  [
+                                                             {
+                                                                 "matcher":  {
+                                                                                 "id":  "byName",
+                                                                                 "options":  "Value"
+                                                                             },
+                                                                 "properties":  [
+                                                                                    {
+                                                                                        "id":  "mappings",
+                                                                                        "value":  [
+                                                                                                      {
+                                                                                                          "type":  "value",
+                                                                                                          "value":  "0",
+                                                                                                          "text":  "OFF",
+                                                                                                          "color":  "red"
+                                                                                                      },
+                                                                                                      {
+                                                                                                          "type":  "value",
+                                                                                                          "value":  "1",
+                                                                                                          "text":  "ON",
+                                                                                                          "color":  "green"
+                                                                                                      }
+                                                                                                  ]
+                                                                                    },
+                                                                                    {
+                                                                                        "id":  "custom.displayMode",
+                                                                                        "value":  "color-background"
+                                                                                    }
+                                                                                ]
+                                                             }
+                                                         ]
+                                       },
+                       "transformations":  [
+                                               {
+                                                   "id":  "organize",
+                                                   "options":  {
+                                                                   "excludeByName":  {
+                                                                                         "Time":  true,
+                                                                                         "__name__":  true,
+                                                                                         "instance":  true,
+                                                                                         "job":  true
+                                                                                     },
+                                                                   "renameByName":  {
+                                                                                        "device_name":  "Device",
+                                                                                        "switch_name":  "Switch",
+                                                                                        "mac_address":  "MAC Address",
+                                                                                        "Value":  "State"
+                                                                                    }
+                                                               }
+                                               }
+                                           ]
+                   },
+                   {
+                       "id":  14,
+                       "title":  "Total Power Trend (24h)",
+                       "type":  "timeseries",
+                       "gridPos":  {
+                                       "h":  8,
+                                       "w":  24,
+                                       "x":  0,
+                                       "y":  46
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "sum(power_usage_watts)",
+                                           "legendFormat":  "Total Power"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "watt",
+                                                            "custom":  {
+                                                                           "drawStyle":  "line",
+                                                                           "lineWidth":  2,
+                                                                           "fillOpacity":  30,
+                                                                           "gradientMode":  "hue",
+                                                                           "showPoints":  "never"
+                                                                       },
+                                                            "thresholds":  {
+                                                                               "mode":  "absolute",
+                                                                               "steps":  [
+                                                                                             {
+                                                                                                 "value":  0,
+                                                                                                 "color":  "green"
+                                                                                             },
+                                                                                             {
+                                                                                                 "value":  800,
+                                                                                                 "color":  "yellow"
+                                                                                             },
+                                                                                             {
+                                                                                                 "value":  1500,
+                                                                                                 "color":  "red"
+                                                                                             }
+                                                                                         ]
+                                                                           }
+                                                        }
+                                       },
+                       "options":  {
+                                       "legend":  {
+                                                      "displayMode":  "list",
+                                                      "placement":  "bottom",
+                                                      "calcs":  [
+                                                                    "lastNotNull",
+                                                                    "max",
+                                                                    "mean",
+                                                                    "min"
+                                                                ]
+                                                  }
+                                   }
+                   },
+                   {
+                       "id":  15,
+                       "title":  "Energy Consumption Rate (Last 5min)",
+                       "type":  "timeseries",
+                       "gridPos":  {
+                                       "h":  8,
+                                       "w":  12,
+                                       "x":  0,
+                                       "y":  54
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "rate(energy_consumption_kwh[5m]) * 1000 * 60",
+                                           "legendFormat":  "{{device_name}}"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "watt",
+                                                            "custom":  {
+                                                                           "drawStyle":  "line",
+                                                                           "lineInterpolation":  "smooth"
+                                                                       }
+                                                        }
+                                       }
+                   },
+                   {
+                       "id":  16,
+                       "title":  "Classroom Power Distribution",
+                       "type":  "timeseries",
+                       "gridPos":  {
+                                       "h":  8,
+                                       "w":  12,
+                                       "x":  12,
+                                       "y":  54
+                                   },
+                       "targets":  [
+                                       {
+                                           "expr":  "sum(power_usage_watts) by (classroom)",
+                                           "legendFormat":  "{{classroom}}"
+                                       }
+                                   ],
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "unit":  "watt",
+                                                            "custom":  {
+                                                                           "drawStyle":  "line",
+                                                                           "lineInterpolation":  "smooth",
+                                                                           "fillOpacity":  15,
+                                                                           "stacking":  {
+                                                                                            "mode":  "normal"
+                                                                                        }
+                                                                       }
+                                                        }
+                                       }
+                   }
+               ],
+    "templating":  {
+                       "list":  [
+                                    {
+                                        "name":  "classroom",
+                                        "label":  "Classroom",
+                                        "type":  "query",
+                                        "datasource":  "Prometheus",
+                                        "query":  "label_values(power_usage_watts, classroom)",
+                                        "multi":  true,
+                                        "includeAll":  true,
+                                        "allValue":  ".*"
+                                    },
+                                    {
+                                        "name":  "device_type",
+                                        "label":  "Device Type",
+                                        "type":  "query",
+                                        "datasource":  "Prometheus",
+                                        "query":  "label_values(power_usage_by_type_watts, device_type)",
+                                        "multi":  true,
+                                        "includeAll":  true,
+                                        "allValue":  ".*"
+                                    },
+                                    {
+                                        "name":  "device_name",
+                                        "label":  "Device",
+                                        "type":  "query",
+                                        "datasource":  "Prometheus",
+                                        "query":  "label_values(power_usage_watts, device_name)",
+                                        "multi":  true,
+                                        "includeAll":  true,
+                                        "allValue":  ".*"
+                                    }
+                                ]
+                   },
+    "annotations":  {
+                        "list":  [
+                                     {
+                                         "name":  "High Power Events",
+                                         "datasource":  "Prometheus",
+                                         "expr":  "sum(power_usage_watts) \u003e 1500",
+                                         "iconColor":  "red",
+                                         "enable":  true
+                                     }
+                                 ]
+                    }
+}

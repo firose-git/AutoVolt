@@ -1,0 +1,1 @@
+{"message":"Server error","error":"ActivityLog validation failed: triggeredBy: `manual` is not a valid enum value for path `triggeredBy`."}

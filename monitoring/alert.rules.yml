@@ -1,0 +1,181 @@
+# Alerting rules for IoT Classroom System
+# Comprehensive alerting for all system components
+
+groups:
+  - name: infrastructure_alerts
+    rules:
+      - alert: BackendDown
+        expr: up{job="backend-api"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Backend API is down"
+          description: "Backend API has been down for more than 1 minute."
+
+      - alert: AIMLServiceDown
+        expr: up{job="ai-ml-service"} == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "AI/ML Service is down"
+          description: "AI/ML service has been down for more than 2 minutes."
+
+      - alert: DatabaseDown
+        expr: up{job="mongodb-exporter"} == 0
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "MongoDB is down"
+          description: "MongoDB database has been down for more than 1 minute."
+
+      - alert: RedisDown
+        expr: up{job="redis-exporter"} == 0
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Redis cache is down"
+          description: "Redis cache has been down for more than 2 minutes."
+
+  - name: performance_alerts
+    rules:
+      - alert: HighCPUUsage
+        expr: rate(process_cpu_user_seconds_total[5m]) > 0.8
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High CPU usage detected"
+          description: "CPU usage is above 80% for more than 5 minutes."
+
+      - alert: HighMemoryUsage
+        expr: process_resident_memory_bytes / process_virtual_memory_max_bytes > 0.9
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High memory usage detected"
+          description: "Memory usage is above 90% for more than 5 minutes."
+
+      - alert: APIHighResponseTime
+        expr: histogram_quantile(0.95, rate(http_request_duration_seconds_bucket[5m])) > 2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "High API response time"
+          description: "95th percentile of API response time is above 2 seconds."
+
+      - alert: DiskSpaceLow
+        expr: (node_filesystem_avail_bytes / node_filesystem_size_bytes) < 0.1
+        for: 5m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Low disk space"
+          description: "Disk space is below 10%."
+
+  - name: device_alerts
+    rules:
+      - alert: DeviceOffline
+        expr: esp32_online_status == 0
+        for: 5m
+        labels:
+          severity: warning
+          channel: telegram
+          alert_type: device_offline
+        annotations:
+          summary: "IoT device is offline"
+          description: "IoT device has been offline for more than 5 minutes. Device details will be provided in the notification."
+          device_info: "Device information will be fetched from the backend"
+          repeat_interval: "30m"
+
+      - alert: PowerUsageSpike
+        expr: total_power_usage_watts > 1000
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Power usage spike detected"
+          description: "Total power usage exceeded 1000W for 1 minute."
+
+      - alert: MultipleDevicesOffline
+        expr: count(classroom_device_status == 0) > 3
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Multiple devices offline"
+          description: "More than 3 IoT devices are currently offline."
+
+  - name: network_alerts
+    rules:
+      - alert: MQTTConnectionIssues
+        expr: increase(mqtt_connect_errors_total[5m]) > 10
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "MQTT connection issues"
+          description: "More than 10 MQTT connection errors in the last 5 minutes."
+
+      - alert: NetworkErrors
+        expr: rate(node_network_receive_errs_total[5m]) > 100
+        for: 2m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Network receive errors"
+          description: "High number of network receive errors detected."
+
+  - name: classroom_alerts
+    rules:
+      - alert: ClassScheduleDisruption
+        expr: classroom_active_sessions < classroom_expected_sessions
+        for: 10m
+        labels:
+          severity: info
+        annotations:
+          summary: "Class schedule disruption"
+          description: "Fewer active class sessions than expected."
+
+      - alert: AbnormalEnergyConsumption
+        expr: increase(classroom_energy_consumption_total[1h]) > 5000
+        for: 15m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Abnormal energy consumption"
+          description: "Energy consumption increased by more than 5000Wh in the last hour."
+
+      - alert: SwitchTimeLimitExceeded
+        expr: switch_time_limit_exceeded_total > 0
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Switch time limit exceeded"
+          description: "One or more switches have exceeded their configured time limits."
+
+      - alert: SwitchesOnAfter5PM
+        expr: classroom_switch_status == 1 and hour() >= 17
+        for: 5m
+        labels:
+          severity: warning
+          channel: telegram
+        annotations:
+          summary: "Switches are ON after 5 PM - {{ $labels.classroom }} Floor {{ $labels.floor }}"
+          description: |
+            🚨 **Evening Security Alert**
+
+            **Location:** {{ $labels.classroom }} (Floor {{ $labels.floor }})
+            **Device:** {{ $labels.device_name }}
+            **Status:** LIGHTS STILL ON after 5:00 PM
+            **Time:** {{ $value }} minutes past schedule
+
+            **Action Required:** Please investigate and turn off lights to save energy and ensure security.
+
+            **Total Active Switches:** Check dashboard for complete list.

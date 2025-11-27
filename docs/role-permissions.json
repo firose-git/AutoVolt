@@ -1,0 +1,191 @@
+{
+  "permissionKeys": [
+    "canManageAdmins",
+    "canManageUsers",
+    "canConfigureDevices",
+    "canControlDevices",
+    "canViewAllReports",
+    "canViewAssignedReports",
+    "canApproveRequests",
+    "canScheduleAutomation",
+    "canRequestDeviceControl",
+    "canMonitorSecurity",
+    "canViewPublicDashboard",
+    "canApproveExtensions",
+    "canRequestExtensions",
+    "emergencyOverride"
+  ],
+  "roles": [
+    {
+      "role": "super-admin",
+      "permissions": {
+        "canManageAdmins": true,
+        "canManageUsers": true,
+        "canConfigureDevices": true,
+        "canControlDevices": true,
+        "canViewAllReports": true,
+        "canViewAssignedReports": true,
+        "canApproveRequests": true,
+        "canScheduleAutomation": true,
+        "canRequestDeviceControl": true,
+        "canMonitorSecurity": true,
+        "canViewPublicDashboard": true,
+        "canApproveExtensions": true,
+        "canRequestExtensions": true,
+        "emergencyOverride": true
+      }
+    },
+    {
+      "role": "dean",
+      "permissions": {
+        "canManageAdmins": false,
+        "canManageUsers": false,
+        "canConfigureDevices": false,
+        "canControlDevices": false,
+        "canViewAllReports": true,
+        "canViewAssignedReports": true,
+        "canApproveRequests": true,
+        "canScheduleAutomation": false,
+        "canRequestDeviceControl": false,
+        "canMonitorSecurity": true,
+        "canViewPublicDashboard": true,
+        "canApproveExtensions": true,
+        "canRequestExtensions": true,
+        "emergencyOverride": false
+      }
+    },
+    {
+      "role": "hod",
+      "permissions": {
+        "canManageAdmins": false,
+        "canManageUsers": false,
+        "canConfigureDevices": false,
+        "canControlDevices": true,
+        "canViewAllReports": true,
+        "canViewAssignedReports": true,
+        "canApproveRequests": true,
+        "canScheduleAutomation": true,
+        "canRequestDeviceControl": true,
+        "canMonitorSecurity": false,
+        "canViewPublicDashboard": true,
+        "canApproveExtensions": true,
+        "canRequestExtensions": true,
+        "emergencyOverride": false
+      }
+    },
+    {
+      "role": "admin",
+      "permissions": {
+        "canManageAdmins": false,
+        "canManageUsers": true,
+        "canConfigureDevices": true,
+        "canControlDevices": true,
+        "canViewAllReports": true,
+        "canViewAssignedReports": true,
+        "canApproveRequests": true,
+        "canScheduleAutomation": true,
+        "canRequestDeviceControl": true,
+        "canMonitorSecurity": false,
+        "canViewPublicDashboard": true,
+        "canApproveExtensions": true,
+        "canRequestExtensions": true,
+        "emergencyOverride": false
+      }
+    },
+    {
+      "role": "faculty",
+      "permissions": {
+        "canManageAdmins": false,
+        "canManageUsers": false,
+        "canConfigureDevices": false,
+        "canControlDevices": true,
+        "canViewAllReports": false,
+        "canViewAssignedReports": true,
+        "canApproveRequests": true,
+        "canScheduleAutomation": true,
+        "canRequestDeviceControl": true,
+        "canMonitorSecurity": false,
+        "canViewPublicDashboard": true,
+        "canApproveExtensions": true,
+        "canRequestExtensions": true,
+        "emergencyOverride": false
+      }
+    },
+    {
+      "role": "teacher",
+      "permissions": {
+        "canManageAdmins": false,
+        "canManageUsers": false,
+        "canConfigureDevices": false,
+        "canControlDevices": true,
+        "canViewAllReports": false,
+        "canViewAssignedReports": true,
+        "canApproveRequests": false,
+        "canScheduleAutomation": true,
+        "canRequestDeviceControl": true,
+        "canMonitorSecurity": false,
+        "canViewPublicDashboard": true,
+        "canApproveExtensions": true,
+        "canRequestExtensions": true,
+        "emergencyOverride": false
+      }
+    },
+    {
+      "role": "student",
+      "permissions": {
+        "canManageAdmins": false,
+        "canManageUsers": false,
+        "canConfigureDevices": false,
+        "canControlDevices": false,
+        "canViewAllReports": false,
+        "canViewAssignedReports": false,
+        "canApproveRequests": false,
+        "canScheduleAutomation": false,
+        "canRequestDeviceControl": true,
+        "canMonitorSecurity": false,
+        "canViewPublicDashboard": true,
+        "canApproveExtensions": false,
+        "canRequestExtensions": true,
+        "emergencyOverride": false
+      }
+    },
+    {
+      "role": "security",
+      "permissions": {
+        "canManageAdmins": false,
+        "canManageUsers": false,
+        "canConfigureDevices": false,
+        "canControlDevices": false,
+        "canViewAllReports": false,
+        "canViewAssignedReports": false,
+        "canApproveRequests": false,
+        "canScheduleAutomation": false,
+        "canRequestDeviceControl": false,
+        "canMonitorSecurity": true,
+        "canViewPublicDashboard": true,
+        "canApproveExtensions": false,
+        "canRequestExtensions": false,
+        "emergencyOverride": true
+      }
+    },
+    {
+      "role": "guest",
+      "permissions": {
+        "canManageAdmins": false,
+        "canManageUsers": false,
+        "canConfigureDevices": false,
+        "canControlDevices": false,
+        "canViewAllReports": false,
+        "canViewAssignedReports": false,
+        "canApproveRequests": false,
+        "canScheduleAutomation": false,
+        "canRequestDeviceControl": false,
+        "canMonitorSecurity": false,
+        "canViewPublicDashboard": true,
+        "canApproveExtensions": false,
+        "canRequestExtensions": false,
+        "emergencyOverride": false
+      }
+    }
+  ]
+}

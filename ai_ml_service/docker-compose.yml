@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  ai-ml-service:
+    build: .
+    ports:
+      - "8002:8002"
+    environment:
+      - PYTHONPATH=/app
+    volumes:
+      - .:/app
+    restart: unless-stopped
+    healthcheck:
+      # curl is not available in the slim Python image; use a python-based check
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://localhost:8002/health')\""]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - smart-class-network
+
+networks:
+  smart-class-network:
+    driver: bridge

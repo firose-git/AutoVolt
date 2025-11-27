@@ -1,0 +1,201 @@
+═══════════════════════════════════════════════════════════════
+    ✅ WORKING GRAFANA QUERIES - COPY & PASTE READY
+═══════════════════════════════════════════════════════════════
+
+🎯 YOUR ACTUAL METRICS (NOT autovolt_* - USE THESE!)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+📊 POWER QUERIES (SHOWING DATA RIGHT NOW!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣  Total Power Consumption:
+sum(esp32_power_usage_watts)
+
+2️⃣  Power by Device (shows each device):
+device_power_usage_watts
+
+3️⃣  Power by Device Type:
+device_power_usage_by_type_watts
+
+4️⃣  Power by Classroom:
+device_power_usage_by_classroom_type_watts
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+⚡ ENERGY QUERIES (175 kWh AVAILABLE!)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+5️⃣  Total Energy (Monthly) - Shows 175.534 kWh:
+sum(esp32_energy_consumption_total_monthly_kwh)
+
+6️⃣  Total Energy (Daily):
+sum(esp32_energy_consumption_total_daily_kwh)
+
+7️⃣  Energy by Device (Monthly):
+esp32_energy_consumption_monthly_kwh
+
+8️⃣  Energy by Device (Daily):
+esp32_energy_consumption_daily_kwh
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🔌 DEVICE STATUS QUERIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+9️⃣  Online Devices Count:
+sum(device_online_count)
+
+🔟 Offline Devices Count:
+sum(device_offline_count)
+
+1️⃣1️⃣ Total Device Count:
+esp32_device_count
+
+1️⃣2️⃣ ESP32 Online Status:
+sum(esp32_online_status)
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+🎛️  SWITCH & HARDWARE QUERIES
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1️⃣3️⃣ Switch States (ON/OFF):
+esp32_switch_state
+
+1️⃣4️⃣ ESP32 Memory Usage:
+esp32_heap_memory_bytes
+
+═══════════════════════════════════════════════════════════════
+    🚀 QUICK START - TEST THESE IN GRAFANA NOW!
+═══════════════════════════════════════════════════════════════
+
+✅ QUERY 1 (WILL SHOW 175 kWh):
+Copy this → Paste in Grafana Explore → Run Query
+───────────────────────────────────────────────────────────────
+sum(esp32_energy_consumption_total_monthly_kwh)
+───────────────────────────────────────────────────────────────
+Expected: 175.534 kWh
+
+✅ QUERY 2 (WILL SHOW DEVICE COUNT):
+───────────────────────────────────────────────────────────────
+esp32_device_count
+───────────────────────────────────────────────────────────────
+Expected: Number of devices
+
+✅ QUERY 3 (WILL SHOW ONLINE DEVICES):
+───────────────────────────────────────────────────────────────
+sum(device_online_count)
+───────────────────────────────────────────────────────────────
+Expected: 2 (your 2 online ESP32s)
+
+✅ QUERY 4 (WILL SHOW POWER DATA):
+───────────────────────────────────────────────────────────────
+device_power_usage_watts
+───────────────────────────────────────────────────────────────
+Expected: Table with device names and power values
+
+═══════════════════════════════════════════════════════════════
+    📝 HOW TO USE IN GRAFANA
+═══════════════════════════════════════════════════════════════
+
+STEP 1: Open Grafana Explore
+-----------------------------
+1. Go to http://localhost:3000
+2. Click "Explore" icon (compass) on left sidebar
+3. Make sure "prometheus" is selected as data source
+
+STEP 2: Paste Query
+-------------------
+1. Click in the "Metric" dropdown
+2. Clear any existing text
+3. Paste one of the queries above (e.g., sum(esp32_power_usage_watts))
+4. Click "Run query" button (top right)
+
+STEP 3: See Your Data!
+-----------------------
+✅ You should see numbers, graphs, or tables
+✅ If you see "No data", check:
+   - Time range is "Last 6 hours" (top right)
+   - Query is typed EXACTLY as shown above
+   - Backend is still running (check terminal)
+
+═══════════════════════════════════════════════════════════════
+    🎨 CREATE DASHBOARD PANELS
+═══════════════════════════════════════════════════════════════
+
+After testing queries in Explore, create a dashboard:
+
+1. Click "Dashboards" → "New dashboard"
+2. Click "Add visualization"
+3. Select "prometheus" as data source
+4. Paste query from above
+5. Choose visualization type:
+   - Stat: For single numbers
+   - Time Series: For graphs over time
+   - Bar Chart: For comparing devices
+   - Pie Chart: For distribution
+   - Table: For detailed data
+6. Set panel title and units
+7. Click "Apply"
+8. Repeat for more panels
+9. Click "Save dashboard" (💾 icon)
+
+═══════════════════════════════════════════════════════════════
+    🎯 EXAMPLE DASHBOARD LAYOUT
+═══════════════════════════════════════════════════════════════
+
+ROW 1: Overview Stats
+─────────────────────────────────────────────────────────────
+[Total Energy: 175 kWh] [Online: 2] [Total Power: 0W]
+
+ROW 2: Power Details
+─────────────────────────────────────────────────────────────
+[Power by Device - Bar Chart]  [Power Over Time - Graph]
+
+ROW 3: Energy Breakdown
+─────────────────────────────────────────────────────────────
+[Energy by Device] [Energy by Classroom]
+
+ROW 4: Device Details
+─────────────────────────────────────────────────────────────
+[Device Table with Power, Status, Memory]
+
+═══════════════════════════════════════════════════════════════
+    ⚠️  IMPORTANT NOTES
+═══════════════════════════════════════════════════════════════
+
+❌ DON'T USE: autovolt_device_power_watts
+✅ USE INSTEAD: esp32_power_usage_watts
+
+❌ DON'T USE: autovolt_total_energy_kwh  
+✅ USE INSTEAD: esp32_energy_consumption_total_monthly_kwh
+
+❌ DON'T USE: autovolt_device_status
+✅ USE INSTEAD: device_online_count or esp32_online_status
+
+The original GRAFANA_QUERIES.txt file had the WRONG metric names!
+This file has the CORRECT ones that match your system!
+
+═══════════════════════════════════════════════════════════════
+    ✅ VERIFIED WORKING METRICS
+═══════════════════════════════════════════════════════════════
+
+These metrics exist in your backend and have data:
+
+✅ device_offline_count
+✅ device_online_count
+✅ device_power_usage_by_classroom_type_watts
+✅ device_power_usage_by_type_watts
+✅ device_power_usage_watts
+✅ esp32_device_count
+✅ esp32_energy_consumption_daily_kwh
+✅ esp32_energy_consumption_monthly_kwh
+✅ esp32_energy_consumption_total_daily_kwh
+✅ esp32_energy_consumption_total_monthly_kwh (175.534 kWh!)
+✅ esp32_heap_memory_bytes
+✅ esp32_online_status
+✅ esp32_power_usage_watts
+✅ esp32_switch_state
+
+═══════════════════════════════════════════════════════════════
+
+🎉 ALL THESE QUERIES WILL WORK IN GRAFANA RIGHT NOW!
+Just copy-paste them into Grafana Explore and click "Run query"!
+

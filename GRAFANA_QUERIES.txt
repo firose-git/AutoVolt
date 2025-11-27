@@ -1,0 +1,405 @@
+═══════════════════════════════════════════════════════════════
+    GRAFANA DASHBOARD - COPY-PASTE QUERIES
+═══════════════════════════════════════════════════════════════
+
+🌐 ACCESS URLS:
+---------------
+Grafana:    http://localhost:3000
+Prometheus: http://localhost:9090
+Metrics:    http://localhost:3001/metrics
+
+Login: admin / admin (change password when prompted)
+
+═══════════════════════════════════════════════════════════════
+    STEP 1: ADD PROMETHEUS DATA SOURCE
+═══════════════════════════════════════════════════════════════
+
+1. Go to: Configuration (⚙️) → Data Sources → Add data source
+2. Select: Prometheus
+3. URL: http://prometheus:9090
+4. Click: Save & Test
+
+═══════════════════════════════════════════════════════════════
+    STEP 2: CREATE DASHBOARD
+═══════════════════════════════════════════════════════════════
+
+Click: Create (+) → Dashboard → Add new panel
+
+Then copy-paste queries below for each panel:
+
+───────────────────────────────────────────────────────────────
+PANEL 1: Total Power Consumption
+───────────────────────────────────────────────────────────────
+Type: Stat
+Query:
+sum(esp32_power_usage_watts)
+
+Settings:
+- Unit: watts (W)
+- Thresholds: 0 (green), 1000 (yellow), 2000 (red)
+- Title: Total Power Consumption
+
+───────────────────────────────────────────────────────────────
+PANEL 2: Total Energy (kWh)
+───────────────────────────────────────────────────────────────
+Type: Stat
+Query:
+sum(esp32_energy_consumption_total_monthly_kwh)
+
+Settings:
+- Unit: kilowatt-hour (kWh)
+- Decimals: 3
+- Title: Total Energy Consumption (Monthly)
+
+───────────────────────────────────────────────────────────────
+PANEL 3: Active Devices
+───────────────────────────────────────────────────────────────
+Type: Stat
+Query:
+sum(device_online_count)
+
+Settings:
+- Unit: none
+- Color: Value
+- Title: Online Devices
+
+───────────────────────────────────────────────────────────────
+PANEL 4: Device Status Breakdown
+───────────────────────────────────────────────────────────────
+Type: Pie Chart
+Query:
+device_online_count{} OR device_offline_count{}
+
+Settings:
+- Legend: Bottom
+- Title: Device Status Distribution
+
+───────────────────────────────────────────────────────────────
+PANEL 5: Power by Device
+───────────────────────────────────────────────────────────────
+Type: Bar Chart
+Query:
+device_power_usage_watts
+
+Settings:
+- Orientation: Horizontal
+- Unit: watts (W)
+- Title: Power Consumption by Device
+
+───────────────────────────────────────────────────────────────
+PANEL 6: Power Over Time
+───────────────────────────────────────────────────────────────
+Type: Time Series
+Query:
+sum(esp32_power_usage_watts)
+
+Settings:
+- Unit: watts (W)
+- Fill opacity: 20
+- Title: Power Consumption Over Time
+
+───────────────────────────────────────────────────────────────
+PANEL 7: Energy Over Time
+───────────────────────────────────────────────────────────────
+Type: Time Series
+Query:
+sum(esp32_energy_consumption_total_monthly_kwh)
+
+Settings:
+- Unit: kilowatt-hour (kWh)
+- Fill opacity: 20
+- Title: Energy Consumption Over Time
+
+───────────────────────────────────────────────────────────────
+PANEL 8: Total Devices
+───────────────────────────────────────────────────────────────
+Type: Stat
+Query:
+esp32_device_count
+
+Settings:
+- Unit: none
+- Decimals: 0
+- Title: Total ESP32 Devices
+
+───────────────────────────────────────────────────────────────
+PANEL 9: ESP32 Connection Status
+───────────────────────────────────────────────────────────────
+Type: Stat
+Query:
+sum(esp32_online_status)
+
+Settings:
+- Unit: none
+- Mappings: 0 = Disconnected (red), 1 = Connected (green)
+- Title: ESP32 Devices Online
+
+───────────────────────────────────────────────────────────────
+PANEL 10: Daily Energy Consumption
+───────────────────────────────────────────────────────────────
+Type: Stat
+Query:
+sum(esp32_energy_consumption_total_daily_kwh)
+
+Settings:
+- Unit: kilowatt-hour (kWh)
+- Decimals: 3
+- Title: Daily Energy Consumption
+
+───────────────────────────────────────────────────────────────
+PANEL 11: ESP32 Memory Usage
+───────────────────────────────────────────────────────────────
+Type: Time Series
+Query:
+esp32_heap_memory_bytes
+
+Settings:
+- Unit: bytes
+- Title: ESP32 Free Memory
+
+───────────────────────────────────────────────────────────────
+PANEL 12: Power by Classroom Type
+───────────────────────────────────────────────────────────────
+Type: Bar Chart
+Query:
+device_power_usage_by_classroom_type_watts
+
+Settings:
+- Unit: watts (W)
+- Orientation: Horizontal
+- Title: Power by Classroom Type
+
+───────────────────────────────────────────────────────────────
+PANEL 13: Device List Table
+───────────────────────────────────────────────────────────────
+Type: Table
+Query:
+device_power_usage_watts
+
+Settings:
+- Format: Table
+- Show all columns
+- Title: Device Power Usage Details
+
+───────────────────────────────────────────────────────────────
+PANEL 14: Power by Device Type
+───────────────────────────────────────────────────────────────
+Type: Pie Chart
+Query:
+device_power_usage_by_type_watts
+
+Settings:
+- Legend: Bottom
+- Unit: watts (W)
+- Title: Power Distribution by Type
+
+───────────────────────────────────────────────────────────────
+PANEL 15: Monthly Energy per Device
+───────────────────────────────────────────────────────────────
+Type: Bar Chart
+Query:
+esp32_energy_consumption_monthly_kwh
+
+Settings:
+- Unit: kilowatt-hour (kWh)
+- Decimals: 2
+- Title: Monthly Energy by Device
+
+───────────────────────────────────────────────────────────────
+PANEL 16: Switch States
+───────────────────────────────────────────────────────────────
+Type: Stat
+Query:
+esp32_switch_state
+
+Settings:
+- Unit: none
+- Mappings: 0 = OFF, 1 = ON
+- Title: ESP32 Switch States
+
+═══════════════════════════════════════════════════════════════
+    PANEL SETTINGS EXPLAINED
+═══════════════════════════════════════════════════════════════
+
+After pasting query, configure each panel:
+
+RIGHT SIDE PANEL OPTIONS:
+-------------------------
+1. Title: Enter panel title from above
+2. Unit: 
+   - Go to: Standard options → Unit
+   - Select unit from above (watts, kWh, etc.)
+3. Decimals:
+   - Standard options → Decimals
+   - Set to 2 or 3 for energy values
+4. Thresholds:
+   - Thresholds section
+   - Click "+ Add threshold"
+   - Enter values from above
+
+VISUALIZATION TYPE:
+-------------------
+- Top right dropdown: Select type (Stat, Time Series, etc.)
+
+COLOR SCHEMES:
+--------------
+- Stat panels: Use thresholds (green/yellow/red)
+- Time Series: Use opacity and line width
+- Pie Chart: Auto colors work well
+- Gauge: Set min/max and thresholds
+
+═══════════════════════════════════════════════════════════════
+    QUICK PANEL CREATION WORKFLOW
+═══════════════════════════════════════════════════════════════
+
+For each panel above:
+
+1. Click "Add panel" → "Add new panel"
+2. Paste the Query from above
+3. Change visualization type (top right dropdown)
+4. Set Title (right panel)
+5. Set Unit (right panel → Standard options → Unit)
+6. Set Thresholds if listed (right panel → Thresholds)
+7. Click "Apply" (top right)
+8. Repeat for next panel
+
+═══════════════════════════════════════════════════════════════
+    DASHBOARD VARIABLES (OPTIONAL FILTERS)
+═══════════════════════════════════════════════════════════════
+
+Add these for filtering:
+
+Dashboard Settings (⚙️) → Variables → Add variable
+
+VARIABLE 1: Classroom Filter
+-----------------------------
+Name: classroom
+Type: Query
+Query: label_values(autovolt_device_status, classroom_id)
+
+VARIABLE 2: Device Type Filter
+-------------------------------
+Name: device_type
+Type: Query
+Query: label_values(autovolt_device_status, device_type)
+
+VARIABLE 3: Device Name Filter
+-------------------------------
+Name: device_name
+Type: Query
+Query: label_values(autovolt_device_status, device_name)
+
+Then use in queries like:
+sum(autovolt_device_power_watts{classroom_id="$classroom"})
+
+═══════════════════════════════════════════════════════════════
+    USEFUL PROMQL QUERIES
+═══════════════════════════════════════════════════════════════
+
+Total power consumption:
+sum(esp32_power_usage_watts)
+
+Online devices count:
+sum(device_online_count)
+
+Offline devices count:
+sum(device_offline_count)
+
+Total energy (monthly):
+sum(esp32_energy_consumption_total_monthly_kwh)
+
+Total energy (daily):
+sum(esp32_energy_consumption_total_daily_kwh)
+
+Power by device type:
+device_power_usage_by_type_watts
+
+Power by classroom:
+device_power_usage_by_classroom_type_watts
+
+Individual device power:
+device_power_usage_watts
+
+Switch states (ON/OFF):
+esp32_switch_state
+
+ESP32 memory usage:
+esp32_heap_memory_bytes
+
+Device count:
+esp32_device_count
+
+Online ESP32s:
+sum(esp32_online_status)
+
+═══════════════════════════════════════════════════════════════
+    ALERTS (OPTIONAL)
+═══════════════════════════════════════════════════════════════
+
+In any panel, click "Alert" tab to create:
+
+HIGH POWER ALERT:
+-----------------
+Condition: sum(autovolt_device_power_watts) > 2000
+Evaluate: every 1m for 5m
+Message: "Total power consumption exceeded 2000W"
+
+DEVICE OFFLINE ALERT:
+---------------------
+Condition: autovolt_esp32_connected == 0
+Evaluate: every 1m for 2m
+Message: "ESP32 device disconnected"
+
+LOW WIFI ALERT:
+---------------
+Condition: autovolt_esp32_wifi_rssi_dbm < -80
+Evaluate: every 5m for 10m
+Message: "WiFi signal weak on ESP32"
+
+═══════════════════════════════════════════════════════════════
+    SAVE DASHBOARD
+═══════════════════════════════════════════════════════════════
+
+After creating all panels:
+1. Click "Save dashboard" (💾 icon top right)
+2. Name: "AutoVolt Monitoring"
+3. Add tags: "autovolt", "energy", "iot"
+4. Click "Save"
+
+═══════════════════════════════════════════════════════════════
+    TROUBLESHOOTING
+═══════════════════════════════════════════════════════════════
+
+No data in panels?
+------------------
+1. Check: http://localhost:3001/metrics (should show data)
+2. Check: http://localhost:9090/targets (should be UP)
+3. In Grafana query, click "Refresh" icon
+4. Set time range to "Last 5 minutes" (top right)
+
+Prometheus target DOWN?
+------------------------
+docker restart autovolt-prometheus
+
+Grafana not loading?
+--------------------
+docker restart autovolt-grafana
+
+Reset admin password?
+---------------------
+docker exec -it autovolt-grafana grafana-cli admin reset-admin-password newpassword
+
+═══════════════════════════════════════════════════════════════
+    FINAL CHECKLIST
+═══════════════════════════════════════════════════════════════
+
+✓ Grafana running: http://localhost:3000
+✓ Prometheus running: http://localhost:9090  
+✓ Backend metrics: http://localhost:3001/metrics
+✓ Data source added: Prometheus
+✓ All 16 panels created with queries above
+✓ Dashboard saved
+
+═══════════════════════════════════════════════════════════════
+
+Done! Your dashboard is ready! 🎉

@@ -1,0 +1,87 @@
+global:
+  smtp_smarthost: 'smtp.gmail.com:587'
+  smtp_from: 'alerts@autovolt.com'
+  smtp_auth_username: 'your-email@gmail.com'
+  smtp_auth_password: 'your-app-password'
+
+route:
+  group_by: ['alertname']
+  group_wait: 10s
+  group_interval: 10s
+  repeat_interval: 1h
+  receiver: 'email-alerts'
+  routes:
+  - match:
+      severity: critical
+    receiver: 'critical-alerts'
+    continue: true
+  - match:
+      severity: warning
+    receiver: 'warning-alerts'
+    continue: true
+  - match:
+      channel: telegram
+    receiver: 'telegram-alerts'
+    continue: true
+
+receivers:
+- name: 'email-alerts'
+  email_configs:
+  - to: 'admin@autovolt.com'
+    headers:
+      subject: 'IoT Classroom Alert: {{ .GroupLabels.alertname }}'
+    html: |
+      <h2>IoT Classroom Alert</h2>
+      {{ range .Alerts }}
+      <p><strong>Alert:</strong> {{ .Annotations.summary }}</p>
+      <p><strong>Description:</strong> {{ .Annotations.description }}</p>
+      <p><strong>Severity:</strong> {{ .Labels.severity }}</p>
+      <p><strong>Instance:</strong> {{ .Labels.instance }}</p>
+      <hr>
+      {{ end }}
+
+- name: 'critical-alerts'
+  email_configs:
+  - to: 'critical@autovolt.com'
+    headers:
+      subject: 'CRITICAL: IoT Classroom Alert - {{ .GroupLabels.alertname }}'
+    html: |
+      <h1 style="color: red;">🚨 CRITICAL ALERT 🚨</h1>
+      {{ range .Alerts }}
+      <p><strong>Alert:</strong> {{ .Annotations.summary }}</p>
+      <p><strong>Description:</strong> {{ .Annotations.description }}</p>
+      <p><strong>Severity:</strong> {{ .Labels.severity }}</p>
+      <p><strong>Instance:</strong> {{ .Labels.instance }}</p>
+      <p><strong>Value:</strong> {{ .Value }}</p>
+      {{ end }}
+      <p style="color: red;"><strong>Please take immediate action!</strong></p>
+
+- name: 'warning-alerts'
+  email_configs:
+  - to: 'warnings@autovolt.com'
+    headers:
+      subject: 'WARNING: IoT Classroom Alert - {{ .GroupLabels.alertname }}'
+    html: |
+      <h1 style="color: orange;">⚠️ WARNING ALERT ⚠️</h1>
+      {{ range .Alerts }}
+      <p><strong>Alert:</strong> {{ .Annotations.summary }}</p>
+      <p><strong>Description:</strong> {{ .Annotations.description }}</p>
+      <p><strong>Severity:</strong> {{ .Labels.severity }}</p>
+      <p><strong>Instance:</strong> {{ .Labels.instance }}</p>
+      <p><strong>Value:</strong> {{ .Value }}</p>
+      {{ end }}
+
+# Webhook for integration with external systems (optional)
+- name: 'webhook'
+  webhook_configs:
+  - url: 'http://backend:3001/api/alerts/webhook'
+    send_resolved: true
+
+# Telegram notifications via webhook
+- name: 'telegram-alerts'
+  webhook_configs:
+  - url: 'http://backend:3001/api/telegram/alerts/webhook'
+    send_resolved: true
+  # Leave http_config empty (Alertmanager will use defaults). Removed custom
+  # 'timeout' to avoid schema errors on older/newer Alertmanager versions.
+  http_config: {}

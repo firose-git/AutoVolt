@@ -1,0 +1,47 @@
+{
+  "deviceTypes": [
+    {
+      "type": "relay",
+      "name": "Relay Switch",
+      "icon": "Zap",
+      "powerConsumption": 50,
+      "unit": "W"
+    },
+    {
+      "type": "light",
+      "name": "LED Lights",
+      "icon": "Lightbulb",
+      "powerConsumption": 40,
+      "unit": "W"
+    },
+    {
+      "type": "fan",
+      "name": "HVAC Fans",
+      "icon": "Fan",
+      "powerConsumption": 75,
+      "unit": "W"
+    },
+    {
+      "type": "outlet",
+      "name": "Power Outlet",
+      "icon": "Plug",
+      "powerConsumption": 100,
+      "unit": "W"
+    },
+    {
+      "type": "projector",
+      "name": "Projector",
+      "icon": "Monitor",
+      "powerConsumption": 200,
+      "unit": "W"
+    },
+    {
+      "type": "ac",
+      "name": "Air Conditioner",
+      "icon": "Activity",
+      "powerConsumption": 1500,
+      "unit": "W"
+    }
+  ],
+  "electricityPrice": 7
+}
